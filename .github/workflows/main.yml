@@ -1,0 +1,21 @@
+name: Docker Build
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker Registry
+        env:
+          DOCKER_HUB_PASS: ${{ secrets.DOCKER_HUB_PASS }}
+          DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+        run: docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+      - name: Building Docker Image
+        env:
+          DOCKER_HUB_IMAGE: ${{ secrets.DOCKER_HUB_IMAGE }}
+        run: docker build -t $DOCKER_HUB_IMAGE:latest .
+      - name: Push Docker Container to Registry
+        env:
+          DOCKER_HUB_IMAGE: ${{ secrets.DOCKER_HUB_IMAGE }}
+        run: docker push $DOCKER_HUB_IMAGE:latest
