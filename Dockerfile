@@ -17,4 +17,4 @@ COPY --from=builder /actions-runner/* ./
 COPY --from=builder /etc/passwd /etc/passwd
 USER ghrunner
 COPY entrypoint.sh .
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/actions-runner/entrypoint.sh"]
