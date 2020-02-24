@@ -10,7 +10,7 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v${VERSION}/a
 
 FROM alpine:latest
 WORKDIR /actions-runner
-COPY --from=builder /actions-runner/* .
+COPY --from=builder /actions-runner/* ./
 COPY --from=builder /etc/passwd /etc/passwd
 USER ghrunner
 COPY entrypoint.sh .
