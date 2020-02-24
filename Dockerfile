@@ -10,6 +10,8 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v${VERSION}/a
   adduser --system --gid 2000 --uid 2000 ghrunner
 
 FROM alpine:latest
+
+RUN apk add --update bash && rm -rf /var/cache/apk/*s
 WORKDIR /actions-runner
 COPY --from=builder /actions-runner/* ./
 COPY --from=builder /etc/passwd /etc/passwd
